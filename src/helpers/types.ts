@@ -9,11 +9,11 @@ export interface IUser {
   followers?: IUser[]
   following?: IUser[]
   isPrivate?: number
+  posts: IPost[]
 }
 
 export interface IAccount extends IUser {
-  posts: IPost[]
-  connection: { followsMe: boolean, following: boolean, requested: boolean }
+  connection: { following: boolean, followsMe: boolean, requested: boolean ,blockedMe:boolean ,didIBlock:boolean}
 }
 
 export interface IResponse {

@@ -10,8 +10,8 @@ interface Props {
 }
 
 export function Gallery({ posts, onUpdate }: Props) {
-  const [isOpen, setIsOpen] = useState<boolean>(false)
-  const [currentPost, setCurrentPost] = useState<IPost | null>(null)
+  const [open, setOpen] = useState<boolean>(false)
+  const [currentPost, setCurrentPost] = useState<number>(-1)
 
   const handleReact = (id: number) => {
     handlePostReaction(id).then(() => {
@@ -28,8 +28,8 @@ export function Gallery({ posts, onUpdate }: Props) {
               <img src={BASE + post.picture} />
               <div
                 onClick={() => {
-                  setCurrentPost(post)
-                  setIsOpen(true)
+                    setOpen(true)
+                    setCurrentPost(post.id)
                 }}
                 className="cover"
               ></div>
@@ -46,13 +46,14 @@ export function Gallery({ posts, onUpdate }: Props) {
             <p>
               {post.title} <small>({post.likes.length} likes)</small>
             </p>
-            {currentPost && currentPost.id === post.id && (
-              <Preview
-                isOpen={isOpen}
-                close={() => setIsOpen(false)}
-                post={currentPost}
-              />
-            )}
+            {
+                currentPost != -1
+                && <Preview
+                    post={currentPost}
+                    open={open}
+                    onClose={() => setOpen(false)}
+                />
+            }
           </div>
         )
       })}

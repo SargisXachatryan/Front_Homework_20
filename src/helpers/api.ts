@@ -116,7 +116,17 @@ export const handlePostReaction = async (id: number): Promise<IResponse> => {
   return response.data
 }
 
-export const handleComment = async (id: number,comment:string):Promise<IResponse> => {
-  const response = await Axios.post(`/posts/comment/${id}`,comment)
+export const handleComment = async (text: string, id: number): Promise<IResponse> => {
+  const response = await Axios.post('/posts/comment/' + id, { text })
+  return response.data
+}
+
+export const handleBlock =async (id:number):Promise<IResponse> =>{
+  const response = await Axios.post('/block/'+id)
+  return response.data
+}
+
+export const getPost = async (id: number): Promise<IResponse> => {
+  const response = await Axios.get('/posts/' + id)
   return response.data
 }
